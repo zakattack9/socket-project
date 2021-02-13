@@ -1,4 +1,6 @@
-from src.utils import Validator
+from utils import Validator
+
+DELIMETER = "-_-"
 
 validate_action = {
   'register': Validator.validate_register,
@@ -13,12 +15,9 @@ validate_action = {
 }
 
 def format_server_command(server_cmd_args):
-  print(server_cmd_args)
-  cmdArgsIsValid = validate_action[server_cmd_args.action](args)
-  if (not cmdArgsIsValid):
-    return False
-
-  # format the command args to send to contact server
+  valid_cmd_args = validate_action[server_cmd_args.action](server_cmd_args)
   
-  return "HI"
+  if (valid_cmd_args == None): return None
 
+  # format the command args into one long string separated by a delimeter
+  return DELIMETER.join(valid_cmd_args)
