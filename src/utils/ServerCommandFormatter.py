@@ -1,6 +1,5 @@
 from utils import Validator
-
-DELIMETER = "-_-"
+from utils.Constants import DELIMETER
 
 validate_action = {
   'register': Validator.validate_register,

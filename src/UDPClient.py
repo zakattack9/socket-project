@@ -42,13 +42,12 @@ try:
 
   server_cmd_args = get_server_command()
   formatted_server_cmd = get_formatted_command(server_cmd_args)
-
   print(formatted_server_cmd)
 
-  # client_socket.sendto(message.encode(), (SERVER_IP, SERVER_PORT))
-  # modified_message, server_address = client_socket.recvfrom(2048)
+  client_socket.sendto(formatted_server_cmd.encode(), (SERVER_IP, SERVER_PORT))
+  server_message, server_address = client_socket.recvfrom(2048)
 
-  # print(modified_message.decode())
+  print(server_message.decode())
 except error:
   print('An error occurred with the UDP socket: ' + error)
 

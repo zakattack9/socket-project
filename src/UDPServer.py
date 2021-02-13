@@ -1,4 +1,5 @@
 from socket import *
+from utils.Constants import DELIMETER
 import argparse
 
 parser = argparse.ArgumentParser(description='IDP server socket process')
@@ -21,10 +22,12 @@ try:
   server_socket.bind(('', SERVER_PORT))
   print('The server has start successfully and is ready to receive messages')
 except error:
-  print('An error occurred: ' + error)
+  print('An error occurred with the UDP socket: ' + error)
 
 while True:
   message, client_address = server_socket.recvfrom(2048)
-  modified_message = message.decode().upper()
+  decoded_message = message.decode()
+  modified_message = "_HI_".join(decoded_message.split(DELIMETER))
+
   server_socket.sendto(modified_message.encode(), client_address)
 
