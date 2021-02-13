@@ -14,21 +14,27 @@ Commands to be implemented for milestone:
 - `save`
 - `exit` (partial functionality)
 
-[user1, user2, user3]
+### Database model
+```python
 contacts = {
-  user1: {
-    ip: ipv4,
-    port: 22000
+  'user1': {
+    'ip': '10.0.0.1',
+    'port': 22000
   },
-  user2: {
-    ip: ipv4,
-    port: 22001
-  }
+  'user2': {
+    'ip': '10.0.0.2',
+    'port': 22001
+  },
+  'user3': {
+    'ip': '10.0.0.3',
+    'port': 22002
+  },
 }
 contact_list = {
-  list1: [user1, user2]
-  list2: [user2, user3]
+  'list1': ['user1', 'user2']
+  'list2': ['user2', 'user3']
 }
+```
 
 ### Need to implement
 - a failure status code must be returned if the named contact is part of an ongoing instant message in the `join` command

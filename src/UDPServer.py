@@ -26,7 +26,7 @@ except error:
 
 while True:
   message, client_address = server_socket.recvfrom(2048)
-  decoded_message = message.decode()
+  command_args = message.decode().split(DELIMETER)
   modified_message = "_HI_".join(decoded_message.split(DELIMETER))
 
   server_socket.sendto(modified_message.encode(), client_address)
