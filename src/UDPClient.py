@@ -2,6 +2,7 @@ from socket import *
 from client.CommandParser import parse_server_command
 from client.CommandFormatter import format_server_command
 from utils import Constants
+from utils.Socket import create_socket, validate_port
 import argparse
 
 parser = argparse.ArgumentParser(description='UDP client socket process')
@@ -11,6 +12,7 @@ parser.add_argument(
 )
 parser.add_argument(
   'server_port',
+  type=int,
   help='Listening port number of UDP socket server'
 )
 
@@ -18,7 +20,7 @@ args = parser.parse_args()
 
 # store the passed in server IP and port # into variables
 SERVER_IP = args.server_ip
-SERVER_PORT = int(args.server_port)
+SERVER_PORT = validate_port(args.server_port)
 
 def get_server_command():
   server_cmd_args = None
@@ -36,10 +38,8 @@ def get_formatted_command(server_cmd_args):
   return formatted_command
 
 try:
-  # AF_INET indicates that the underlying network is using IPv4
-  # SOCK_DGRAM indicates that it is a UDP socket
-  client_socket = socket(AF_INET, SOCK_DGRAM)
-
+  client_socket = create_socket(SERVER_PORT)
+  
   while True:
     server_cmd_args = get_server_command()
     formatted_server_cmd = get_formatted_command(server_cmd_args)
@@ -60,5 +60,5 @@ try:
       print('Terminating session and client server...')
       client_socket.close()
       break
-except:
-  print('\nAn error occurred with the UDP socket')
+except Exception as err:
+  print('An error occurred with the UDP socket\n' + str(err))
