@@ -51,9 +51,12 @@ python3 UDPServer.py <server-port>
 4. Create 2 contact lists, and have peers query and join lists, until each contact list has 2-3 contacts.
 5. Save the configuration to a file.
 6. Exit the peers; kill the server process.
+
+[DEMO VIDEO LINK](https://youtu.be/V6trnoBKt0s)
 ```bash
 # run on all terminals (allows use of py alias)
 source ~/.bashrc
+cd socket_project/src
 
 py UDPServer.py 22000
 py UDPClient.py 10.120.70.145 22000
@@ -70,19 +73,22 @@ create list_2
 # run on all client terminals
 query-lists
 
-join list1 me
-join list2 me
+join list_1 me
+join list_2 me
 
-join list1 myself
-join list2 myself
+join list_1 myself
+join list_2 myself
 
-join list2 i
+join list_2 i
 
 save config.txt
 
 exit me
 exit myself
 exit i
+
+# exit the server process
+nano config.txt
 ```
 
 ### Need to implement
