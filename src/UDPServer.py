@@ -26,11 +26,11 @@ except:
   print('An error occurred with the UDP socket')
 
 while True:
-  message, client_info = server_socket.recvfrom(2048)
+  client_message, client_info = server_socket.recvfrom(2048)
   client_ip, client_port = client_info
 
   print('\nReceived incoming message from ' + client_ip + ' using port ' + str(client_port))
-  command_args = message.decode().split(Constants.DELIMETER)
+  command_args = client_message.decode().split(Constants.DELIMETER)
   
   print('Executing command...')
   return_code, data = execute_command(command_args)
@@ -38,6 +38,6 @@ while True:
 
   operation_status = 'succeeded' if return_code == Constants.SUCCESS_CODE else 'failed'
   print('Contact server operation ' + operation_status + '!!!')
-  print('Sending return code to client...')
+  print('Sending response back to client...')
   
   server_socket.sendto(formatted_response.encode(), client_info)

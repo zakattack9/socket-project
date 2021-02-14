@@ -44,13 +44,12 @@ try:
   while True:
     server_cmd_args = get_server_command()
     formatted_server_cmd = get_formatted_command(server_cmd_args)
-    print(formatted_server_cmd)
+    # print(formatted_server_cmd)
 
     client_socket.sendto(formatted_server_cmd.encode(), (SERVER_IP, SERVER_PORT))
-    server_message, server_address = client_socket.recvfrom(2048)
+    server_message, server_info = client_socket.recvfrom(2048)
 
-    response = server_message.decode()
-    return_code, data = response.split(Constants.DELIMETER)
+    return_code, data = server_message.decode().split(Constants.DELIMETER)
     isSuccess = int(return_code) == Constants.SUCCESS_CODE
     
     if (isSuccess):
