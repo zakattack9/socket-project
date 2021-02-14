@@ -44,7 +44,6 @@ try:
   while True:
     server_cmd_args = get_server_command()
     formatted_server_cmd = get_formatted_command(server_cmd_args)
-    # print(formatted_server_cmd)
 
     client_socket.sendto(formatted_server_cmd.encode(), (SERVER_IP, SERVER_PORT))
     server_message, server_info = client_socket.recvfrom(2048)
@@ -56,7 +55,7 @@ try:
       print(Constants.failure_code_message(return_code))
 
     # print any data sent back from the server
-    if (isSuccess and not data == 'None'): print('\n' + data)
+    if (isSuccess and not data == 'None'): print(data)
     
     if (isSuccess and server_cmd_args.action == 'exit'):
       print('Terminating session and client server...')

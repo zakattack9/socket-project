@@ -34,8 +34,9 @@ except:
 while True:
   client_message, client_info = server_socket.recvfrom(2048)
   client_ip, client_port = client_info
+  client = client_ip + ' : ' + str(client_port)
 
-  print('\nNew message from ' + client_ip + ':' + str(client_port))
+  print('\nNew message from ' + client)
   command_args = client_message.decode().split(Constants.DELIMETER)
   print_command_args(command_args)
   
@@ -48,4 +49,4 @@ while True:
     print('Operation succeeded!!!')
   
   server_socket.sendto(formatted_response.encode(), client_info)
-  print('Response sent back to ' + client_ip + ':' + str(client_port))
+  print('Response sent back to ' + client)
