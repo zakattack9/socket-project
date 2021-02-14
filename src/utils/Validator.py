@@ -40,7 +40,7 @@ def validate_im_start(args):
 def validate_im_complete(args):
   return verify_contact_list_and_name(args)
 
-def validate_sav(args):
+def validate_save(args):
   if (args.arg1 == None):
     print_missing_arg('save filename')
   else:

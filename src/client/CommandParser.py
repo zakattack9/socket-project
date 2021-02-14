@@ -24,7 +24,7 @@ server_command_parser.add_argument(
 server_command_parser.add_argument(
   'arg2',
   nargs='?',
-  help='<IP-address | contact-name>'
+  help='<ip-address | contact-name>'
 )
 server_command_parser.add_argument(
   'arg3',

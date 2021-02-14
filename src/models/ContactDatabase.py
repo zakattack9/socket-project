@@ -1,7 +1,7 @@
 from utils import Constants
 from utils import FileWriter
 
-class Database:
+class ContactDatabase:
   def __init__(self):
     self.contacts = {}
     self.contact_lists = {}

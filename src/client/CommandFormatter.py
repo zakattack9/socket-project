@@ -10,12 +10,12 @@ validate_action = {
   'exit': Validator.validate_exit,
   'im-start': Validator.validate_im_start,
   'im-complete': Validator.validate_im_complete,
-  'save': Validator.validate_sav,
+  'save': Validator.validate_save,
 }
 
-def format_server_command(server_cmd_args):
-  valid_cmd_args = validate_action[server_cmd_args.action](server_cmd_args)
-  
+def format_server_command(args):
+  valid_cmd_args = validate_action[args.action](args)
+
   if (valid_cmd_args == None): return None
 
   # format the command args into one long string separated by a delimeter

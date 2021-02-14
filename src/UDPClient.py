@@ -1,6 +1,6 @@
 from socket import *
-from utils.ServerCommandParser import parse_server_command
-from utils.ServerCommandFormatter import format_server_command
+from client.CommandParser import parse_server_command
+from client.CommandFormatter import format_server_command
 import argparse
 
 parser = argparse.ArgumentParser(description='UDP client socket process')
@@ -48,8 +48,8 @@ try:
   server_message, server_address = client_socket.recvfrom(2048)
 
   print(server_message.decode())
-except error:
-  print('An error occurred with the UDP socket: ' + error)
+except:
+  print('An error occurred with the UDP socket')
 
 # closes the client socket and terminates its process
 client_socket.close()
