@@ -10,7 +10,6 @@ parser.add_argument(
 )
 
 args = parser.parse_args()
-# print(args)
 
 # store the passed in port # for the server to listen on
 SERVER_PORT = int(args.port_number)

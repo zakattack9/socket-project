@@ -11,11 +11,10 @@ parser.add_argument(
 )
 parser.add_argument(
   'server_port',
-  help='Listnening port number of UDP socket server'
+  help='Listening port number of UDP socket server'
 )
 
 args = parser.parse_args()
-# print(args)
 
 # store the passed in server IP and port # into variables
 SERVER_IP = args.server_ip

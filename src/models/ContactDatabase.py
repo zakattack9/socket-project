@@ -73,8 +73,8 @@ def save_to_file(file_name):
           contacts[contact][Constants.DB_IP_KEY], 
           contacts[contact][Constants.DB_PORT_KEY])
     file.close()
-  except Exception as a:
-    print(str(a))
+  except Exception as err:
+    print(str(err))
     return _build_response(Constants.FAILURE_CODE_FILE_SAVE_ERROR)
   return _build_response(Constants.SUCCESS_CODE)
 
