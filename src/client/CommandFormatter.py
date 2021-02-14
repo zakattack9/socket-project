@@ -1,5 +1,5 @@
 from utils import Validator
-from utils.Constants import DELIMETER
+from utils.Constants import DELIMITER
 
 validate_action = {
   'register': Validator.validate_register,
@@ -18,5 +18,5 @@ def format_server_command(args):
 
   if (valid_cmd_args == None): return None
 
-  # format the command args into one long string separated by a delimeter
-  return DELIMETER.join(valid_cmd_args)
+  # format the command args into one long string separated by a delimiter
+  return DELIMITER.join(valid_cmd_args)

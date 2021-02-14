@@ -94,3 +94,7 @@ nano config.txt
 ### Need to implement
 - a failure status code must be returned if the named contact is part of an ongoing instant message in the `join` command
 - a failure status code must be returned if the named contact is part of an ongoing instant message in the `exit` command
+
+### Need to fix
+- inputted commands with string arguments that include spaces are not parsed properly
+  - `create "list 1"` => created in database as `"list`

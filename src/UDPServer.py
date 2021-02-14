@@ -32,11 +32,11 @@ try:
     client = client_ip + ' : ' + str(client_port)
 
     print('\nNew message from ' + client)
-    command_args = client_message.decode().split(Constants.DELIMETER)
+    command_args = client_message.decode().split(Constants.DELIMITER)
     print_command_args(command_args)
     
     return_code, data = execute_command(command_args)
-    formatted_response = Constants.DELIMETER.join([ str(return_code), str(data) ])
+    formatted_response = Constants.DELIMITER.join([ str(return_code), str(data) ])
 
     if (not return_code == Constants.SUCCESS_CODE):
       print(Constants.failure_code_message(return_code))

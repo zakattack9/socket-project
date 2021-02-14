@@ -47,7 +47,7 @@ try:
     client_socket.sendto(formatted_server_cmd.encode(), (SERVER_IP, SERVER_PORT))
     server_message, server_info = client_socket.recvfrom(2048)
 
-    return_code, data = server_message.decode().split(Constants.DELIMETER)
+    return_code, data = server_message.decode().split(Constants.DELIMITER)
     isSuccess = int(return_code) == Constants.SUCCESS_CODE
     
     if (not isSuccess):
