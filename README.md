@@ -44,6 +44,47 @@ python3 UDPClient.py <server-ip-address> <server-port>
 python3 UDPServer.py <server-port>
 ```
 
+### Demo Commands
+1. Compile your server and peer programs (if applicable).
+2. Run the freshly compiled programs on at least two (2) distinct end hosts.
+3. First, start your server program. Then start 3 peers that each register with the server.
+4. Create 2 contact lists, and have peers query and join lists, until each contact list has 2-3 contacts.
+5. Save the configuration to a file.
+6. Exit the peers; kill the server process.
+```bash
+# run on all terminals (allows use of py alias)
+source ~/.bashrc
+
+py UDPServer.py 22000
+py UDPClient.py 10.120.70.145 22000
+py UDPClient.py 10.120.70.145 22000
+py UDPClient.py 10.120.70.145 22000
+
+register me '10.120.70.106' 22000
+register myself '10.120.70.106' 22001
+register i '10.120.70.106' 22002
+
+create list_1
+create list_2
+
+# run on all client terminals
+query-lists
+
+join list1 me
+join list2 me
+
+join list1 myself
+join list2 myself
+
+join list2 i
+
+save config.txt
+
+exit me
+exit myself
+exit i
+```
+
 ### Need to implement
 - a failure status code must be returned if the named contact is part of an ongoing instant message in the `join` command
 - a failure status code must be returned if the named contact is part of an ongoing instant message in the `exit` command

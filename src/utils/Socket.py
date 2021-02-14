@@ -14,6 +14,7 @@ def create_socket(port):
     new_socket = socket(AF_INET, SOCK_DGRAM)
     # bind the specified port number to the socket instantiated above
     new_socket.bind(('', port))
+    print('Socket bound to port ' + str(port))
     return new_socket
   except Exception as err:
     if ('[Errno 98] Address already in use' in str(err)):
