@@ -1,7 +1,7 @@
 ### Server port number
-Group 42
-Lower bound port number: 42/2 * 1000 + 1000 = 22000
-Upper bound port number: 42/2 * 1000 + 1499 = 22499
+Group 42</br>
+Lower bound port number: 42/2 * 1000 + 1000 = 22000</br>
+Upper bound port number: 42/2 * 1000 + 1499 = 22499</br>
 Client port range: [22000, 22499]
 
 Server commands are sent from the client to the contact server as one string delimited by the string "-_-"
@@ -34,6 +34,14 @@ contact_list = {
   'list1': ['user1', 'user2']
   'list2': ['user2', 'user3']
 }
+```
+
+### How to run
+```bash
+# connect a client machine to the contact server
+python3 UDPClient.py <server-ip-address> <server-port>
+# start up the contact server on specific port
+python3 UDPServer.py <server-port>
 ```
 
 ### Need to implement
