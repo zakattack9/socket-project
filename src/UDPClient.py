@@ -1,6 +1,7 @@
 from socket import *
 from client.CommandParser import parse_server_command
 from client.CommandFormatter import format_server_command
+from utils import Constants
 import argparse
 
 parser = argparse.ArgumentParser(description='UDP client socket process')
@@ -40,16 +41,23 @@ try:
   # SOCK_DGRAM indicates that it is a UDP socket
   client_socket = socket(AF_INET, SOCK_DGRAM)
 
-  server_cmd_args = get_server_command()
-  formatted_server_cmd = get_formatted_command(server_cmd_args)
-  print(formatted_server_cmd)
+  while True:
+    server_cmd_args = get_server_command()
+    formatted_server_cmd = get_formatted_command(server_cmd_args)
+    print(formatted_server_cmd)
 
-  client_socket.sendto(formatted_server_cmd.encode(), (SERVER_IP, SERVER_PORT))
-  server_message, server_address = client_socket.recvfrom(2048)
+    client_socket.sendto(formatted_server_cmd.encode(), (SERVER_IP, SERVER_PORT))
+    server_message, server_address = client_socket.recvfrom(2048)
 
-  print(server_message.decode())
+    return_code = server_message.decode()
+    if (return_code == Constants.SUCCESS_CODE):
+      print('Command executed successfully!!!')
+      if (server_cmd_args.action == 'exit'):
+        print('Terminating session and client server...')
+        # closes the client socket and terminates its process
+        client_socket.close()
+        break
+    else:
+      print('An error occurred on the server side')
 except:
   print('An error occurred with the UDP socket')
-
-# closes the client socket and terminates its process
-client_socket.close()

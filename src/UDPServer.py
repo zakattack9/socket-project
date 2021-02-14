@@ -1,5 +1,5 @@
 from socket import *
-from utils.Constants import DELIMETER
+from utils import Constants
 from models import ContactDatabase
 from server.CommandExecutor import execute_command
 import argparse
@@ -30,9 +30,13 @@ while True:
   # instantiate new database instance
   ContactDatabase = ContactDatabase()
   message, client_address = server_socket.recvfrom(2048)
-  command_args = message.decode().split(DELIMETER)
+
+  print('Received incoming message from ' + client_address)
+  command_args = message.decode().split(Constants.DELIMETER)
+  print('Executing command...')
   return_code = execute_command(command_args, ContactDatabase)
-  # modified_message = "_HI_".join(decoded_message.split(DELIMETER))
 
-  server_socket.sendto(modified_message.encode(), client_address)
-
+  print('Contact server operation ' + 'succeeded' if return_code == Constants.SUCCESS_CODE else 'failed' + '!!!')
+  print('Sending return code to client...')
+  
+  server_socket.sendto(return_code.encode(), client_address)
