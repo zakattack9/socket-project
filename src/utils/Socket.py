@@ -20,4 +20,4 @@ def create_socket(port):
       port += 1
       return create_socket(port)
     else:
-      raise Exception('[ERROR] Occurred during the UDP socket creation')
+      raise Exception('[ERROR] Occurred during the UDP socket creation\n' + str(err))

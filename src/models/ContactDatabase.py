@@ -42,6 +42,18 @@ def add_contact_to_list(list_name, contact_name):
   contact_lists[list_name].append(contact_name)
   return _build_response(Constants.SUCCESS_CODE)
 
+def exit(contact_name):
+  if (not contact_name in contacts):
+    return _build_response(Constants.FAILURE_CODE_UNREGISTERED_CONTACT)
+  
+  # delete contact from list of currently active contacts
+  del contacts[contact_name]
+  # delete contact from all associated contact lists
+  for list_contacts in contact_lists.values():
+    if (contact_name in list_contacts):
+      list_contacts.remove(contact_name)
+  return _build_response(Constants.SUCCESS_CODE)
+
 def save_to_file(file_name):
   try:
     file = FileWriter(file_name)
@@ -74,7 +86,7 @@ def save_to_file(file_name):
           contacts[contact][Constants.DB_PORT_KEY])
     file.close()
   except Exception as err:
-    print(str(err))
+    print('[CONTACT DB ERROR]: Occurred while saving to file\n' + str(err))
     return _build_response(Constants.FAILURE_CODE_FILE_SAVE_ERROR)
   return _build_response(Constants.SUCCESS_CODE)
 
@@ -83,18 +95,6 @@ def _save_contact_info(file, name, ip, port):
   file.append_line(name)
   file.append_to_end(ip)
   file.append_to_end(port)
-
-def exit(contact_name):
-  if (not contact_name in contacts):
-    return _build_response(Constants.FAILURE_CODE_UNREGISTERED_CONTACT)
-  
-  # delete contact from list of currently active contacts
-  del contacts[contact_name]
-  # delete contact from all associated contact lists
-  for list_contacts in contact_lists.values():
-    if (contact_name in list_contacts):
-      list_contacts.remove(contact_name)
-  return _build_response(Constants.SUCCESS_CODE)
 
 def _build_response(return_code, data = None):
   return (return_code, data)

@@ -61,4 +61,4 @@ try:
       client_socket.close()
       break
 except Exception as err:
-  print('An error occurred with the UDP socket\n' + str(err))
+  print('[ERROR]: Occurred with the UDP socket\n' + str(err))

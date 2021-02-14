@@ -46,4 +46,4 @@ try:
     server_socket.sendto(formatted_response.encode(), client_info)
     print('Response sent back to ' + client)
 except Exception as err:
-  print('An error occurred with the UDP socket\n' + str(err))
+  print('[ERROR]: Occurred with the UDP socket\n' + str(err))
