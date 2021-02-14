@@ -19,3 +19,20 @@ FAILURE_CODE_UNCREATED_LIST = 460
 FAILURE_CODE_DUPLICATE_CONTACT_IN_LIST = 461
 # save
 FAILURE_CODE_FILE_SAVE_ERROR = 462
+
+def failure_code_message(failure_code):
+  FAILURE_CODE_MESSAGES = {
+    455: 'The specified contact name already exists',
+    456: 'The server has reached its max capacity of active contacts',
+    457: 'The specified contact list name already exists',
+    458: 'The server has reached its max capacity of contact lists',
+    459: 'The specified contact does not exist',
+    460: 'The specified contact list does not exist',
+    461: 'The specified contact already exists in this list',
+    462: 'The server was unable to save its data to the specified file'
+  }
+  if (failure_code in FAILURE_CODE_MESSAGES):
+    return '[' + failure_code + ']: ' + FAILURE_CODE_MESSAGES[int(failure_code)]
+  else:
+    return '[ERROR]: Command not executed due to an error that occurred on the server side'
+  

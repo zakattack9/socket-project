@@ -53,9 +53,7 @@ try:
     isSuccess = int(return_code) == Constants.SUCCESS_CODE
     
     if (not isSuccess):
-      print('[' + str(return_code) + ']: An error occurred on the server side')
-    # else:
-      # print('Command executed successfully!!!')
+      print(Constants.failure_code_message(return_code))
 
     # print any data sent back from the server
     if (isSuccess and not data == 'None'): print('\n' + data)
