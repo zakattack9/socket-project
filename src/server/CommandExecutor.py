@@ -1,26 +1,10 @@
-execute_action = {
-  'register': execute_register,
-  'create': execute_create,
-  'query-lists': execute_query_lists,
-  'join': execute_join,
-  'leave': execute_leave,
-  'exit': execute_exit,
-  'im-start': execute_im_start,
-  'im-complete': execute_im_complete,
-  'save': execute_save,
-}
-
-ContactDatabase = None
-def execute_command(args, database):
-  ContactDatabase = database
-  return_code = execute_action[args[0]](args)
-  return return_code
+import models.ContactDatabase as ContactDatabase
 
 def execute_register(args):
   return ContactDatabase.register_contact(args[1], args[2], args[3])
 
 def execute_create(args):
-  return ContactDatabase.register_contact(args[1])
+  return ContactDatabase.create_contact_list(args[1])
 
 def execute_query_lists(args):
   return ContactDatabase.get_lists()
@@ -42,3 +26,19 @@ def execute_im_complete(args):
 
 def execute_save(args):
   return ContactDatabase.save_to_file(args[1])
+
+execute_action = {
+  'register': execute_register,
+  'create': execute_create,
+  'query-lists': execute_query_lists,
+  'join': execute_join,
+  'leave': execute_leave,
+  'exit': execute_exit,
+  'im-start': execute_im_start,
+  'im-complete': execute_im_complete,
+  'save': execute_save,
+}
+
+def execute_command(args):
+  return_code = execute_action[args[0]](args)
+  return return_code

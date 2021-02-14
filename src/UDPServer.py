@@ -1,6 +1,5 @@
 from socket import *
 from utils import Constants
-from models import ContactDatabase
 from server.CommandExecutor import execute_command
 import argparse
 
@@ -22,21 +21,23 @@ try:
   server_socket = socket(AF_INET, SOCK_DGRAM)
   # bind the specified port number to the server's socket instantiated with the above line
   server_socket.bind(('', SERVER_PORT))
-  print('The server has start successfully and is ready to receive messages')
+  print('The server has started successfully and is ready to receive messages')
 except:
   print('An error occurred with the UDP socket')
 
 while True:
-  # instantiate new database instance
-  ContactDatabase = ContactDatabase()
-  message, client_address = server_socket.recvfrom(2048)
+  message, client_info = server_socket.recvfrom(2048)
+  client_ip, client_port = client_info
 
-  print('Received incoming message from ' + client_address)
+  print('\nReceived incoming message from ' + client_ip + ' using port ' + str(client_port))
   command_args = message.decode().split(Constants.DELIMETER)
+  
   print('Executing command...')
-  return_code = execute_command(command_args, ContactDatabase)
+  return_code, data = execute_command(command_args)
+  formatted_response = Constants.DELIMETER.join([ str(return_code), str(data) ])
 
-  print('Contact server operation ' + 'succeeded' if return_code == Constants.SUCCESS_CODE else 'failed' + '!!!')
+  operation_status = 'succeeded' if return_code == Constants.SUCCESS_CODE else 'failed'
+  print('Contact server operation ' + operation_status + '!!!')
   print('Sending return code to client...')
   
-  server_socket.sendto(return_code.encode(), client_address)
+  server_socket.sendto(formatted_response.encode(), client_info)

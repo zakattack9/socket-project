@@ -49,15 +49,21 @@ try:
     client_socket.sendto(formatted_server_cmd.encode(), (SERVER_IP, SERVER_PORT))
     server_message, server_address = client_socket.recvfrom(2048)
 
-    return_code = server_message.decode()
-    if (return_code == Constants.SUCCESS_CODE):
+    response = server_message.decode()
+    return_code, data = response.split(Constants.DELIMETER)
+    isSuccess = int(return_code) == Constants.SUCCESS_CODE
+    
+    if (isSuccess):
       print('Command executed successfully!!!')
-      if (server_cmd_args.action == 'exit'):
-        print('Terminating session and client server...')
-        # closes the client socket and terminates its process
-        client_socket.close()
-        break
     else:
       print('An error occurred on the server side')
+
+    # print any data sent back from the server
+    if (isSuccess and not data == 'None'): print('\n' + data)
+    
+    if (isSuccess and server_cmd_args.action == 'exit'):
+      print('Terminating session and client server...')
+      client_socket.close()
+      break
 except:
   print('An error occurred with the UDP socket')
