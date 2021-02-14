@@ -15,6 +15,12 @@ args = parser.parse_args()
 # store the passed in port # for the server to listen on
 SERVER_PORT = int(args.port_number)
 
+def print_command_args(cmd_args):
+  client_command = '$ '
+  for arg in cmd_args:
+    client_command += str(arg) + ' '
+  print(client_command)
+
 try:
   # AF_INET indicates that the underlying network is using IPv4
   # SOCK_DGRAM indicates that it is a UDP socket
@@ -23,7 +29,7 @@ try:
   server_socket.bind(('', SERVER_PORT))
   print('The server has started successfully and is ready to receive messages')
 except:
-  print('An error occurred with the UDP socket')
+  print('\nAn error occurred with the UDP socket')
 
 while True:
   client_message, client_info = server_socket.recvfrom(2048)
@@ -31,8 +37,9 @@ while True:
 
   print('\nReceived incoming message from ' + client_ip + ' using port ' + str(client_port))
   command_args = client_message.decode().split(Constants.DELIMETER)
+  print_command_args(command_args)
   
-  print('Executing command...')
+  # print('Executing command...')
   return_code, data = execute_command(command_args)
   formatted_response = Constants.DELIMETER.join([ str(return_code), str(data) ])
 

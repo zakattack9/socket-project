@@ -74,14 +74,17 @@ class ContactDatabase:
     file.append_to_end(ip)
     file.append_to_end(port)
 
-  def exit(self, contact_name):
-    if (not contact_name in self.contacts):
-      return Constants.FAILURE_CODE_UNREGISTERED_CONTACT
-    
-    # delete contact from list of currently active contacts
-    del self.contacts[contact_name]
-    # delete contact from all associated contact lists
-    for list_contacts in self.contact_lists.values():
-      if (contact_name in list_contacts):
-        list_contacts.remove(contact_name)
-    return Constants.SUCCESS_CODE
+  try:
+    def exit(self, contact_name):
+      if (not contact_name in self.contacts):
+        return Constants.FAILURE_CODE_UNREGISTERED_CONTACT
+      
+      # delete contact from list of currently active contacts
+      del self.contacts[contact_name]
+      # delete contact from all associated contact lists
+      for list_contacts in self.contact_lists.values():
+        if (contact_name in list_contacts):
+          list_contacts.remove(contact_name)
+      return Constants.SUCCESS_CODE
+  except Exception as e:
+    print(e)

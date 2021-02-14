@@ -52,10 +52,10 @@ try:
     return_code, data = server_message.decode().split(Constants.DELIMETER)
     isSuccess = int(return_code) == Constants.SUCCESS_CODE
     
-    if (isSuccess):
-      print('Command executed successfully!!!')
-    else:
-      print('An error occurred on the server side')
+    if (not isSuccess):
+      print('[' + str(return_code) + ']: An error occurred on the server side')
+    # else:
+      # print('Command executed successfully!!!')
 
     # print any data sent back from the server
     if (isSuccess and not data == 'None'): print('\n' + data)
@@ -65,4 +65,4 @@ try:
       client_socket.close()
       break
 except:
-  print('An error occurred with the UDP socket')
+  print('\nAn error occurred with the UDP socket')

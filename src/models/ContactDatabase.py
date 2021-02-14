@@ -1,5 +1,5 @@
 from utils import Constants
-from utils import FileWriter
+from utils.FileWriter import FileWriter
 
 contacts = {}
 contact_lists = {}
@@ -48,25 +48,33 @@ def save_to_file(file_name):
     file.clear_contents() # overwrite same file with each save
     
     # write line containing number of contacts
-    file.append_to_end(len(contacts), False)
+    file.append_to_end(str(len(contacts)), False)
     # for each contact, append a line containing the contact's info
     for contact_name, contact_info in contacts.items():
-      _save_contact_info(contact_name, contact_info[Constants.DB_IP_KEY], contact_info[Constants.DB_PORT_KEY])
+      _save_contact_info(
+        file,
+        contact_name, 
+        contact_info[Constants.DB_IP_KEY], 
+        contact_info[Constants.DB_PORT_KEY])
       
     # append line containing number of contact lists
-    file.append_line(len(contact_lists))
+    file.append_line(str(len(contact_lists)))
     # for each list, append its name, number of contacts, and their respective contact info
     for list_name, list_contacts in contact_lists.items():
       # append line containing contact list name
       file.append_line(list_name)
       # append line containing number of contacts in current list
-      file.append_line(len(list_contacts))
+      file.append_line(str(len(list_contacts)))
       # for each contact in the current list, append a line containing the contact's info
       for contact in list_contacts:
-        _save_contact_info(contact, contacts[contact][Constants.DB_IP_KEY], contacts[contact][Constants.DB_PORT_KEY])
-    
+        _save_contact_info(
+          file,
+          contact, 
+          contacts[contact][Constants.DB_IP_KEY], 
+          contacts[contact][Constants.DB_PORT_KEY])
     file.close()
-  except:
+  except Exception as a:
+    print(str(a))
     return _build_response(Constants.FAILURE_CODE_FILE_SAVE_ERROR)
   return _build_response(Constants.SUCCESS_CODE)
 
