@@ -36,7 +36,6 @@ def get_lists():
     'num_lists': num_lists,
     'list_names': list_names,
   }
-  print(res_obj)
   return _build_response(Constants.SUCCESS_CODE, res_obj)
 
 def add_contact_to_list(list_name, contact_name):
@@ -160,7 +159,7 @@ def save_to_file(file_name):
 def _save_contact_info(file, name, ip, port):
   file.append_line(name)
   file.append_to_end(ip)
-  file.append_to_end(port)
+  file.append_to_end(str(port))
 
 def _build_response(return_code, data = None):
   return (return_code, data)

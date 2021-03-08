@@ -16,9 +16,15 @@ def begin_im_start(data, client_socket):
   text_message = input('> ')
   print()
   
+  contact_list = data['contact_list']
+  contact_list_len = data['num_contacts_in_list']
+  if (contact_list_len < 2): 
+    print('[IM COMPLETED]\n')
+    return
+
   pointer = 1
-  PEER_IP = data['contact_list'][pointer][Constants.DB_IP_KEY]
-  PEER_PORT = data['contact_list'][pointer][Constants.DB_PORT_KEY] + 1
+  PEER_IP = contact_list[pointer][Constants.DB_IP_KEY]
+  PEER_PORT = contact_list[pointer][Constants.DB_PORT_KEY] + 1
 
   data['text_message'] = text_message
   data['pointer'] = pointer + 1
