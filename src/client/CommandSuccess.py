@@ -14,7 +14,7 @@ def print_queried_lists(data):
 def begin_im_start(data, client_socket):
   print('\nPlease enter a message to send to the group')
   text_message = input('> ')
-  print("sup losers i am the best of the best and you are trash boi")
+  print()
   
   contact_list = data['contact_list']
   contact_list_len = data['num_contacts_in_list']
