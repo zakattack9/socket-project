@@ -14,6 +14,12 @@ Commands to be implemented for milestone:
 - `save`
 - `exit` (partial functionality)
 
+Commands to be implemented for final submission:
+- `leave`
+- `exit` (exit the peer program)
+- `im-start`
+- `im-complete`
+
 ### Database model
 ```python
 contacts = {
@@ -30,11 +36,25 @@ contacts = {
     'port': 22002
   },
 }
-contact_list = {
+contact_lists = {
   'list1': ['user1', 'user2']
   'list2': ['user2', 'user3']
 }
+ongoing_ims = {
+  'list1': ['user1']
+}
 ```
+
+### im-start
+- every contact list will have an integer indicating how many ongoing instant messages are being sent within that list
+- this integer must be 0 in order for a contact to be added or removed from the list (performs check when doing `join`, `leave`, `exit`)
+- upon starting an instant message within a contact list, the contact list has its integer incremented by 1 to indicate that at least one instant message is occurring within the group
+- upon receiving an `im-complete` for a group, the specified contact list's integer is decremented by 1
+
+### Threading
+- each UDPClient spawns two threads:
+  - the first thread listens only for responses from the UDPServer and ignores any other traffic; it performs the necessary tasks of parsing server commands and displaying any return data from the server
+  - the second thread listens only for response that aren't from the UDPServer (i.e. im-start messages) ignoring any other traffic; this thread has the simple job of displaying, then propagating the message to the next UDPClient in the P2P client list; upon receiving its own broadcasted message back, it displays a message saying im-complete should be executed
 
 ### How to run
 ```bash
@@ -62,6 +82,7 @@ py UDPServer.py 22000
 py UDPClient.py 10.120.70.145 22000
 py UDPClient.py 10.120.70.145 22000
 py UDPClient.py 10.120.70.145 22000
+# py UDPClient.py 10.120.70.106 22000
 
 register me '10.120.70.106' 22000
 register myself '10.120.70.106' 22001

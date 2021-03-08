@@ -3,6 +3,7 @@ from utils import Constants
 from server.CommandExecutor import execute_command
 from utils.Socket import create_socket, validate_port
 import argparse
+import json
 
 parser = argparse.ArgumentParser(description='IDP server socket process')
 parser.add_argument(
@@ -36,7 +37,7 @@ try:
     print_command_args(command_args)
     
     return_code, data = execute_command(command_args)
-    formatted_response = Constants.DELIMITER.join([ str(return_code), str(data) ])
+    formatted_response = Constants.DELIMITER.join([ str(return_code), json.dumps(data) ])
 
     if (not return_code == Constants.SUCCESS_CODE):
       print(Constants.failure_code_message(return_code))

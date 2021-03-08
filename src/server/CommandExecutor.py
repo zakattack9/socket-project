@@ -13,16 +13,16 @@ def execute_join(args):
   return ContactDB.add_contact_to_list(args[1], args[2])
 
 def execute_leave(args):
-  return
+  return ContactDB.remove_contact_from_list(args[1], args[2])
 
 def execute_exit(args):
   return ContactDB.exit(args[1])
 
 def execute_im_start(args):
-  return
+  return ContactDB.begin_instant_message(args[1], args[2])
 
 def execute_im_complete(args):
-  return
+  return ContactDB.end_instant_message(args[1], args[2])
 
 def execute_save(args):
   return ContactDB.save_to_file(args[1])
@@ -40,5 +40,5 @@ execute_action = {
 }
 
 def execute_command(args):
-  return_code = execute_action[args[0]](args)
-  return return_code
+  response = execute_action[args[0]](args)
+  return response

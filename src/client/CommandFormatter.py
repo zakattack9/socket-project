@@ -13,6 +13,7 @@ validate_action = {
   'save': Validator.validate_save,
 }
 
+# validates command first before formatting the command
 def format_server_command(args):
   valid_cmd_args = validate_action[args.action](args)
 
