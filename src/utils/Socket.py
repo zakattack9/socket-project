@@ -27,8 +27,9 @@ def create_socket(port):
     else:
       raise Exception('[ERROR]: Occurred during the UDP socket creation\n' + str(err))
 
+# creates two sockets with adjacent ports
 def create_pair_socket(port):
-  if (port > Constants.MAX_PORT_NUM):
+  if (port + 1 > Constants.MAX_PORT_NUM):
     port = Constants.MIN_PORT_NUM
   client_socket = None
   p2p_socket = None

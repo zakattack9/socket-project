@@ -88,6 +88,10 @@ register me '10.120.70.106' 22000
 register myself '10.120.70.106' 22001
 register i '10.120.70.106' 22002
 
+register me "10.120.70.106" 22000
+register myself '10.120.70.106' 22002
+register i 10.120.70.145 22001
+
 create list_1
 create list_2
 

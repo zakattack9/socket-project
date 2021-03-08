@@ -13,8 +13,8 @@ def register_contact(contact_name, ip, port):
 
   contacts[contact_name] = { 
     Constants.DB_NAME_KEY: contact_name,
-    Constants.DB_IP_KEY: ip, 
-    Constants.DB_PORT_KEY: port 
+    Constants.DB_IP_KEY: ip.strip('"').strip("'"),
+    Constants.DB_PORT_KEY: int(port)
   }
   return _build_response(Constants.SUCCESS_CODE)
 
@@ -32,10 +32,12 @@ def get_lists():
   num_lists = len(contact_lists)
   list_names = list(contact_lists.keys())
 
-  response_str = 'Total number of contact lists: ' + str(num_lists)
-  for contact_list in list_names:
-    response_str += '\n' + contact_list
-  return _build_response(Constants.SUCCESS_CODE, response_str)
+  res_obj = {
+    'num_lists': num_lists,
+    'list_names': list_names,
+  }
+  print(res_obj)
+  return _build_response(Constants.SUCCESS_CODE, res_obj)
 
 def add_contact_to_list(list_name, contact_name):
   if (not contact_name in contacts):
@@ -98,11 +100,9 @@ def begin_instant_message(list_name, contact_name):
       full_contact_list.append(contacts[contact])
 
   res_obj = {
-    'num_contacts': len(contact_lists[list_name]),
+    'num_contacts_in_list': len(contact_lists[list_name]),
     'contact_list': full_contact_list,
   }
-  print(full_contact_list)
-
   ongoing_ims[list_name].append(contact_name)
   return _build_response(Constants.SUCCESS_CODE, res_obj)
 
