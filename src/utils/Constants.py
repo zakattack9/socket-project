@@ -41,7 +41,7 @@ FAILURE_CODE_MESSAGES = {
   str(FAILURE_CODE_DUPLICATE_CONTACT_IN_LIST) : 'The specified contact name already exists in the list',
   str(FAILURE_CODE_FILE_SAVE_ERROR)           : 'The server was unable to save its data to the specified file',
   str(FAILURE_CODE_ONGOING_IM)                : 'The server was unable to complete the request due to an ongoing instant message',
-  str(FAILURE_CODE_MISSING_CONTACT_IN_LIST)   : 'The specified contact name does not exists in the list',
+  str(FAILURE_CODE_MISSING_CONTACT_IN_LIST)   : 'The specified contact name does not exist in the list',
   str(FAILURE_CODE_INVALID_IM_COMPLETE)       : 'The specified contact did not initiate an im-start for the contact list'
 }
 
