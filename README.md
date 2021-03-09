@@ -72,7 +72,7 @@ python3 UDPServer.py <server-port>
 5. Save the configuration to a file.
 6. Exit the peers; kill the server process.
 
-[DEMO VIDEO LINK](https://youtu.be/V6trnoBKt0s)
+[MILESTONE DEMO VIDEO LINK](https://youtu.be/V6trnoBKt0s)
 ```bash
 # run on all terminals (allows use of py alias)
 source ~/.bashrc
@@ -111,6 +111,120 @@ save config.txt
 exit me
 exit myself
 exit i
+
+# exit the server process
+nano config.txt
+```
+
+[FINAL DEMO VIDEO LINK](https://youtu.be/7PJ86fVAsjo)
+```bash
+# run on all terminals (allows use of py alias)
+source ~/.bashrc
+cd socket_project/src
+
+# general4
+py UDPServer.py 22000
+py UDPClient.py 10.120.70.145 22000
+# general3
+py UDPClient.py 10.120.70.145 22000
+py UDPClient.py 10.120.70.145 22000
+# general5
+py UDPClient.py 10.120.70.145 22000
+py UDPClient.py 10.120.70.145 22000
+
+# general3
+register Me 10.120.70.106 22000
+register Myself 10.120.70.106 22002
+# general4
+register I 10.120.70.145 22001
+# general5
+register Foo 10.120.70.117 22000
+register Bar 10.120.70.117 22002
+
+# contains all five contacts
+create list_1
+# contains Me, Myself, and I
+create list_2
+# contains Foo and Bar
+create list_3
+# contains Foo
+create list_4
+
+# run on any client terminal
+query-lists
+
+join list_1 Me
+join list_2 Me
+
+join list_1 Myself
+join list_2 Myself
+
+join list_1 I
+join list_2 I
+
+join list_1 Foo
+join list_3 Foo
+join list_4 Foo
+
+join list_1 Bar
+join list_3 Bar
+
+# demonstrates use of same group list across multiple im's
+# also demonstrates intersecting contact list
+im-start list_1 Me
+  Hello
+
+im-start list_1 Me
+  World
+
+# demonstrates that contacts can receive message from different groups
+# also demonstrates disjoint contact list
+im-start list_2 Myself
+  Hi list_2
+
+# show that leave can't be executed due to ongoing im
+leave list_1 Me
+# show that for each im-start there must be a corresponding im-complete
+im-complete list_1 Me
+im-complete list_1 Me
+# show that each im-complete must correspond to an im-start
+im-complete list_1 Me
+# show that leave function works after executing required im-complete's
+leave list_1 Me
+
+# demonstrate disjoint contact list
+im-start list_3 Foo
+  Hi Bar
+
+im-start list_3 Bar
+  Hi Foo
+
+im-complete list_3 Foo
+im-complete list_3 Bar
+
+# demonstrate im-start on contact list with only one contact (no machine should receive the message)
+im-start list_4 Foo
+  Anyone here?
+
+# show that join can't be executed due to ongoing im
+join list_4 Me
+
+im-complete list_4 Foo
+
+# save current config to file
+# particularly, Me should be missing from list_1
+save config.txt
+
+# show that exit can't be executed due to ongoing im
+exit Myself
+im-complete list_2 Myself
+# show that Myself can now execute exit after completing im
+exit Myself
+
+exit Me
+exit I
+exit Foo
+exit Bar
 
 # exit the server process
 nano config.txt
